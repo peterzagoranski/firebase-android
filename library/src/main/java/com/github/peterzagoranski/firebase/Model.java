@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 public abstract class Model {
@@ -37,15 +36,10 @@ public abstract class Model {
         return FirebaseAuth.getInstance();
     }
 
-    private final ValueEventListener listener = new ValueEventListener() {
+    private final ShorterValueEventListener listener = new ShorterValueEventListener() {
         @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            connected.set((boolean) dataSnapshot.getValue());
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            connected.set(false);
+        public void onEvent(DatabaseError error, DataSnapshot snapshot) {
+            connected.set(null == error && snapshot.getValue(Boolean.class));
         }
     };
 }
