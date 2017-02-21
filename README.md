@@ -1,4 +1,5 @@
 ## Firebase
+[![](https://jitpack.io/v/peterzagoranski/firebase-android.svg)](https://jitpack.io/#peterzagoranski/firebase-android)
 
 ## Usage
 Add dependecy to gradle
